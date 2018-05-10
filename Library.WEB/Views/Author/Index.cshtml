@@ -42,7 +42,7 @@
                             },
                             update: function (opt) {
                                 $.ajax({
-                                    url: '/Author/AuthorsEdit',
+                                    url: '/Author/AuthorEdit',
                                     type: "POST",
                                     dataType: "json",
                                     data: {
@@ -104,8 +104,13 @@
                         }
                     }
                 });
-                $("#grid").kendoGrid({
-                    dataSource: dataSource,
+
+                var user = '@User.Identity.Name'
+                admin = "admin@gmail.com"
+                 if (user == admin)
+                 {
+                     $("#grid").kendoGrid({
+                         dataSource: dataSource,
                     pageable: true,
                     height: 550,
                     toolbar: ["create"],
@@ -114,6 +119,19 @@
                         { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
                     editable: "popup"
                 });
+                 }
+                 else
+                 {
+                     $("#grid").kendoGrid({
+                         dataSource: dataSource,
+                    pageable: true,
+                    height: 550,
+                    columns: [
+                        { field: "Name", title: "Name" },
+                        ],
+                    editable: "popup"
+                });
+                 }
             });
         </script>
     </div>

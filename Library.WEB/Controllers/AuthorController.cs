@@ -36,7 +36,7 @@ namespace Library.WEB.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public ActionResult AuthorsEdit(AuthorViewModel authorViewModel)
+        public ActionResult AuthorEdit(AuthorViewModel authorViewModel)
         {
             _authorService.UpdateAuthor(authorViewModel);
             return Json(authorViewModel);

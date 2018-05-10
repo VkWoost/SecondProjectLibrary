@@ -109,19 +109,37 @@
                     }
                 });
 
-                $("#grid").kendoGrid({
-                    dataSource: dataSource,
-                    pageable: true,
-                    height: 550,
-                    toolbar: ["create"],
-                    columns: [
-                        { field: "Name", title: "Name" },
-                        { field: "YearOfPublication", title: "Year Of Publication" },
-                        { field: "Author.Name", title: "Author", editor: authorEditor },
-                        { field: "PublicationHouses", title: "Publication Houses", editor: phEditor },
-                        { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
-                    editable: "popup"
-                });
+            var user = '@User.Identity.Name'
+                admin = "admin@gmail.com"
+                if (user == admin) {
+                    $("#grid").kendoGrid({
+                        dataSource: dataSource,
+                        pageable: true,
+                        height: 550,
+                        toolbar: ["create"],
+                        columns: [
+                            { field: "Name", title: "Name" },
+                            { field: "YearOfPublication", title: "Year Of Publication" },
+                            { field: "Author.Name", title: "Author", editor: authorEditor },
+                            { field: "PublicationHouses", title: "Publication Houses", editor: phEditor },
+                            { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
+                        editable: "popup"
+                    });
+                }
+                else {
+                    $("#grid").kendoGrid({
+                        dataSource: dataSource,
+                        pageable: true,
+                        height: 550,
+                        columns: [
+                            { field: "Name", title: "Name" },
+                            { field: "YearOfPublication", title: "Year Of Publication" },
+                            { field: "Author.Name", title: "Author", editor: authorEditor },
+                            { field: "PublicationHouses", title: "Publication Houses", editor: phEditor },
+                            ],
+                        editable: "popup"
+                    });
+                }
             });
 
             function authorEditor(container, options) {

@@ -106,19 +106,37 @@
                         }
                     }
                 });
+                var user = '@User.Identity.Name'
+                admin = "admin@gmail.com"
+                if (user == admin) {
+                    $("#grid").kendoGrid({
+                        dataSource: dataSource,
+                        pageable: true,
+                        height: 550,
+                        toolbar: ["create"],
+                        columns: [
+                            { field: "Name", title: "Name" },
+                            { field: "Number", title: "Number" },
+                            { field: "YearOfPublication", title: "Year Of Publication" },
+                            { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
+                        editable: "popup"
+                    });
+                }
+                else {
+                    $("#grid").kendoGrid({
+                        dataSource: dataSource,
+                        pageable: true,
+                        height: 550,
+                        columns: [
+                            { field: "Name", title: "Name" },
+                            { field: "Number", title: "Number" },
+                            { field: "YearOfPublication", title: "Year Of Publication" },
+                            ],
+                        editable: "popup"
+                    });
+                }
 
-                $("#grid").kendoGrid({
-                    dataSource: dataSource,
-                    pageable: true,
-                    height: 550,
-                    toolbar: ["create"],
-                    columns: [
-                        { field: "Name", title: "Name" },
-                        { field: "Number", title: "Number" },
-                        { field: "YearOfPublication", title: "Year Of Publication" },
-                        { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
-                    editable: "popup"
-                });
+                
             });
         </script>
     </div>

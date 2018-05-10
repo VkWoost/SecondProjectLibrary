@@ -54,7 +54,7 @@ namespace Library.WEB.Controllers
                     }, claim);
                 }
             }
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Logout()

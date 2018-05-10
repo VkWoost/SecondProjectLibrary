@@ -13,12 +13,7 @@ namespace Library.WEB.Controllers
         {
             return Redirect("/Book/Index/");
         }
-                
-        public ActionResult RegisterLogin()
-        {
-            return View();
-        }
-
+         
         //protected override void Dispose(bool disposing)
         //{
         //    //_bookService.Dispose();
