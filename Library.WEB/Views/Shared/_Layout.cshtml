@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="~/favicon.ico">
+
+    <link href="~/Content/_Layout/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/_Layout/justified-nav.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="~/Scripts/jquery-3.3.1.slim.min.js"><\/script>')</script>
+    <script src="~/Scripts/_Layout/popper.min.js"></script>
+    <script src="~/Scripts/_Layout/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="masthead">
+            @RenderSection("scripts", required: false)
+            <h3 class="text-muted">Library</h3>
+
+            <nav class="navbar navbar-expand-md navbar-light bg-light rounded mb-3">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav text-md-center nav-justified w-100">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/Home/Index/">Books <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Magazine/Index/">Magazines</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Brochure/Index/">Brochures</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Author/Index/">Authors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/PublicationHouse/Index/">Publication Houses</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/Home/RegisterLogin/">Account</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <main role="main">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    @RenderBody()
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">Library @DateTime.Now.Year</span>
+            </div>
+        </footer>
+    </div>
+    
+</body>
+</html>

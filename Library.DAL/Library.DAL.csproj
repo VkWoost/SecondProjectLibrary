@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{638A8EAD-76C9-463F-8679-37FA80F533B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Library.DAL</RootNamespace>
+    <AssemblyName>Library.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EF\ApplicationContext.cs" />
+    <Compile Include="EF\BookContext.cs" />
+    <Compile Include="Identity\ApplicationRoleManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager.cs" />
+    <Compile Include="Identity\Entities\ApplicationRole.cs" />
+    <Compile Include="Identity\Entities\ApplicationUser.cs" />
+    <Compile Include="Identity\Entities\ClientProfile.cs" />
+    <Compile Include="Interfaces\IClientManager.cs" />
+    <Compile Include="Interfaces\IGenericRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWorkIdentity.cs" />
+    <Compile Include="Migrations\201804251203344_init.cs" />
+    <Compile Include="Migrations\201804251203344_init.Designer.cs">
+      <DependentUpon>201804251203344_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804251212172_test.cs" />
+    <Compile Include="Migrations\201804251212172_test.Designer.cs">
+      <DependentUpon>201804251212172_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804251407514_admin.cs" />
+    <Compile Include="Migrations\201804251407514_admin.Designer.cs">
+      <DependentUpon>201804251407514_admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804261038053_addbrochure.cs" />
+    <Compile Include="Migrations\201804261038053_addbrochure.Designer.cs">
+      <DependentUpon>201804261038053_addbrochure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804301205088_publicationHouses.cs" />
+    <Compile Include="Migrations\201804301205088_publicationHouses.Designer.cs">
+      <DependentUpon>201804301205088_publicationHouses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805031019464_AuthorBooks.cs" />
+    <Compile Include="Migrations\201805031019464_AuthorBooks.Designer.cs">
+      <DependentUpon>201805031019464_AuthorBooks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BookRepository.cs" />
+    <Compile Include="Repositories\ClientManager.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\IdentityUnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Enteties\Library.Entities.csproj">
+      <Project>{fce12645-9339-4657-ba19-806362512cb3}</Project>
+      <Name>Library.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804251203344_init.resx">
+      <DependentUpon>201804251203344_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804251212172_test.resx">
+      <DependentUpon>201804251212172_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804251407514_admin.resx">
+      <DependentUpon>201804251407514_admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804261038053_addbrochure.resx">
+      <DependentUpon>201804261038053_addbrochure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301205088_publicationHouses.resx">
+      <DependentUpon>201804301205088_publicationHouses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805031019464_AuthorBooks.resx">
+      <DependentUpon>201805031019464_AuthorBooks.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

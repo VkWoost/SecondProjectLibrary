@@ -1,0 +1,121 @@
+﻿@{
+    var user = @User.Identity.Name;
+    var admin = "admin@gmail.com";
+    if (user == admin)
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";  
+    else
+        Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="~/kendoui/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/kendoui/styles/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/kendoui/styles/kendo.default.mobile.min.css" rel="stylesheet" />
+
+    <script src="~/kendoui/js/jquery.min.js"></script>
+    <script src="~/kendoui/js/kendo.all.min.js"></script>
+
+</head>
+<body>
+    <div id="example">
+        <div id="grid"></div>
+
+        <script>
+            $(document).ready(function () {
+                dataSource = new kendo.data.DataSource({
+                    transport:
+                        {
+                            read: function (e) {
+                                $.ajax({
+                                    url: '/Author/GetAuthors',
+                                    type: "GET",
+                                    dataType: "json",
+                                    success: function (result) {
+                                        e.success(result);
+                                    },
+                                    error: function (result) {
+                                        e.error(result);
+                                    }
+                                });
+                            },
+                            update: function (opt) {
+                                $.ajax({
+                                    url: '/Author/AuthorsEdit',
+                                    type: "POST",
+                                    dataType: "json",
+                                    data: {
+                                        authorViewModel: opt.data.models[0]
+                                    },
+                                    success: function (result) {
+                                        opt.success(result);
+                                    },
+                                    error: function (result) {
+                                        opt.error(result);
+                                    },
+                                });
+                            },
+                            destroy: function (options) {
+                                $.ajax({
+                                    url: '/Author/DeleteAuthor/' + options.data.models[0].Id,
+                                    type: "POST",
+                                    dataType: "json",
+                                    success: function (result) {
+                                        options.success(result);
+                                    },
+                                    error: function (result) {
+                                        options.error(result);
+                                    }
+                                });
+                            },
+                            create: function (options) {
+                                debugger;
+                                $.ajax({
+                                    url: '/Author/AddAuthor',
+                                    type: "POST",
+                                    dataType: "json",
+                                    data: {
+                                        authorViewModel: options.data.models[0]
+                                    },
+                                    success: function (result) {
+                                        options.success(result);
+                                    },
+                                    error: function (result) {
+                                        options.error(result);
+                                    }
+                                });
+                            },
+                            parameterMap: function (options, operation) {
+                                if (operation !== "read" && options.models) {
+                                    return { models: kendo.stringify(options.models) };
+                                }
+                            }
+                        },
+                    batch: true,
+                    pageSize: 20,
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                Id: { editable: false, nullable: true },
+                                Name: { validation: { required: true } }
+                            }
+                        }
+                    }
+                });
+                $("#grid").kendoGrid({
+                    dataSource: dataSource,
+                    pageable: true,
+                    height: 550,
+                    toolbar: ["create"],
+                    columns: [
+                        { field: "Name", title: "Name" },
+                        { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
+                    editable: "popup"
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>
