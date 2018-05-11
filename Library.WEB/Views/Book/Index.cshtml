@@ -108,8 +108,8 @@
                         }
                     }
                 });
-                
-            var user = '@User.Identity.Name'
+
+                var user = '@User.Identity.Name'
                 admin = "admin@gmail.com"
                 if (user == admin) {
                     $("#grid").kendoGrid({
@@ -121,7 +121,7 @@
                             { field: "Name", title: "Name" },
                             { field: "YearOfPublication", title: "Year Of Publication" },
                             { field: "Author.Name", title: "Author", editor: authorEditor },
-                            { field: "PublicationHouses", title: "Publication Houses", editor: phEditor },
+                            { field: "PublicationHouses", title: "Publication Houses", editor: phEditor, template: pHNames },
                             { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
                         editable: "popup"
                     });
@@ -169,6 +169,9 @@
                         dataTextField: "Name",
                         dataValueField: "Id",
                     });
+            }
+            function pHNames(options) {
+                return options.PublicationHouses.map(x => x.Name).join(",");
             }
         </script>
     </div>
