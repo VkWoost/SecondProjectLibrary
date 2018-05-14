@@ -1,6 +1,6 @@
 ﻿using Library.DAL.EF;
 using Library.DAL.Interfaces;
-using Library.Enteties.Entities;
+using Library.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

@@ -1,116 +1,15 @@
-﻿
-    <div id="example">
-        <div id="grid"></div>
+﻿<script src="~/Scripts/KendoGrid/AdminPublicationHouse.js"></script>
+<script src="~/Scripts/KendoGrid/PublicationHouse.js"></script>
 
-        <script>
-            $(document).ready(function () {
-                dataSource = new kendo.data.DataSource({
-                    transport:
-                        {
-                            read: function (e) {
-                                $.ajax({
-                                    url: '/PublicationHouse/GetPublicationHouses',
-                                    type: "GET",
-                                    dataType: "json",
-                                    success: function (result) {
-                                        e.success(result);
-                                    },
-                                    error: function (result) {
-                                        e.error(result);
-                                    }
-                                });
-                            },
-                            update: function (opt) {
-                                $.ajax({
-                                    url: '/PublicationHouse/PublicationHouseEdit',
-                                    type: "POST",
-                                    dataType: "json",
-                                    data: {
-                                        publicationHouseViewModel: opt.data.models[0]
-                                    },
-                                    success: function (result) {
-                                        opt.success(result);
-                                    },
-                                    error: function (result) {
-                                        opt.error(result);
-                                    },
-                                });
-                            },
-                            destroy: function (options) {
-                                $.ajax({
-                                    url: '/PublicationHouse/DeletePublicationHouse/' + options.data.models[0].Id,
-                                    type: "POST",
-                                    dataType: "json",
-                                    success: function (result) {
-                                        options.success(result);
-                                    },
-                                    error: function (result) {
-                                        options.error(result);
-                                    }
-                                });
-                            },
-                            create: function (options) {
-                                $.ajax({
-                                    url: '/PublicationHouse/AddPublicationHouse',
-                                    type: "POST",
-                                    dataType: "json",
-                                    data: {
-                                        publicationHouseViewModel: options.data.models[0]
-                                    },
-                                    success: function (result) {
-                                        options.success(result);
-                                    },
-                                    error: function (result) {
-                                        options.error(result);
-                                    }
-                                });
-                            },
-                            parameterMap: function (options, operation) {
-                                if (operation !== "read" && options.models) {
-                                    return { models: kendo.stringify(options.models) };
-                                }
-                            }
-                        },
-                    batch: true,
-                    pageSize: 20,
-                    schema: {
-                        model: {
-                            id: "Id",
-                            fields: {
-                                Id: { editable: false, nullable: true },
-                                Name: { validation: { required: true } },
-                                Adress: { validation: { required: true } }
-                            }
-                        }
-                    }
-                });
+<div id="example">
+    <div id="grid"></div>
 
-                if ("@User.IsInRole("admin")" == "True")
-                {
-                    $("#grid").kendoGrid({
-                        dataSource: dataSource,
-                        pageable: true,
-                        height: 550,
-                        toolbar: ["create"],
-                        columns: [
-                            { field: "Name", title: "Name" },
-                            { field: "Adress", title: "Adress" },
-                            { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
-                        editable: "popup"
-                    });
-                }
-                else {
-                    $("#grid").kendoGrid({
-                        dataSource: dataSource,
-                        pageable: true,
-                        height: 550,
-                        columns: [
-                            { field: "Name", title: "Name" },
-                            { field: "Adress", title: "Adress" },
-                            ]
-                    });
-                }
-                
-            });
-        </script>
-    </div>
+    <script>
+         if ("@User.IsInRole("admin")" == "True") {
+            AdminPublicationHouse()
+         }
+         else {
+             PublicationHouse()
+         }
+    </script>
+</div>

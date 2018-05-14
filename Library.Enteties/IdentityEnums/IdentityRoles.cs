@@ -1,4 +1,4 @@
-﻿namespace Library.Enteties.IdentityEnums
+﻿namespace Library.Entities.IdentityEnums
 {
     public enum IdentityRoles
     {

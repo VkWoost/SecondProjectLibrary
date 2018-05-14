@@ -1,6 +1,6 @@
 ﻿using Library.DAL.EF;
 using Library.DAL.Identity;
-using Library.Enteties.IdentityEntities;
+using Library.Entities.IdentityEntities;
 using Library.DAL.Interfaces;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;

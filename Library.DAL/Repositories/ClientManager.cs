@@ -1,5 +1,5 @@
 ﻿using Library.DAL.EF;
-using Library.Enteties.IdentityEntities;
+using Library.Entities.IdentityEntities;
 using Library.DAL.Interfaces;
 
 namespace Library.DAL.Repositories

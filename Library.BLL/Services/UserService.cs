@@ -1,13 +1,13 @@
 ﻿using Library.BLL.Infrastructure;
 using Library.BLL.Interfaces;
-using Library.Enteties.IdentityEntities;
+using Library.Entities.IdentityEntities;
 using Library.DAL.Interfaces;
 using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Library.ViewModels.IdentityViewModels;
-using Library.Enteties.IdentityEnums;
+using Library.Entities.IdentityEnums;
 
 namespace Library.BLL.Services
 {

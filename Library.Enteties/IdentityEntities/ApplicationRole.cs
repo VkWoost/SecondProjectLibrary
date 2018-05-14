@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace Library.Enteties.IdentityEntities
+namespace Library.Entities.IdentityEntities
 {
     public class ApplicationRole : IdentityRole
     {

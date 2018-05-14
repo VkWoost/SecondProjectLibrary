@@ -1,4 +1,4 @@
-﻿using Library.Enteties.IdentityEntities;
+﻿using Library.Entities.IdentityEntities;
 using Microsoft.AspNet.Identity;
 
 namespace Library.DAL.Identity

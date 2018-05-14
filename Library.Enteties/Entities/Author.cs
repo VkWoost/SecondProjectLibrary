@@ -1,4 +1,4 @@
-﻿using Library.Enteties.Entities;
+﻿using Library.Entities.Entities;
 using System.Collections.Generic;
 
 namespace Library.Entities.Entities

@@ -1,6 +1,4 @@
-﻿using Library.Enteties.Entities;
-
-namespace Library.Entities.Entities
+﻿namespace Library.Entities.Entities
 {
     public class Brochure : Basic
     {
