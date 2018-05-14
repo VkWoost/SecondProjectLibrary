@@ -1,9 +1,9 @@
-﻿namespace Library.Entities.Entities
+﻿using Library.Enteties.Entities;
+
+namespace Library.Entities.Entities
 {
-    public class Brochure
+    public class Brochure : Basic
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public string TypeOfCover { get; set; }
         public int NumberOfPages { get; set; }
     }

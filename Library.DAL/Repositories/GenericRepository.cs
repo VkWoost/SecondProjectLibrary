@@ -1,12 +1,14 @@
 ﻿using Library.DAL.EF;
 using Library.DAL.Interfaces;
+using Library.Enteties.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
 namespace Library.DAL.Repositories
 {
-    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : Basic
     {
         private DbContext _context;
         private DbSet<TEntity> _dbSet;
@@ -22,11 +24,16 @@ namespace Library.DAL.Repositories
             return _dbSet.Find(id);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return _dbSet.AsNoTracking().ToList();
         }
-        
+
+        public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
+        {
+            return _dbSet.AsNoTracking().Where(predicate).ToList();
+        }
+
         public virtual void Create(TEntity item)
         {
             _dbSet.Add(item);

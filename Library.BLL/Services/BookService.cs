@@ -10,14 +10,12 @@ namespace Library.BLL.Services
     public class BookService
     {
         private BookRepository _bookRepository;
-        private EFGenericRepository<PublicationHouse> _publicationRepository;
-        private EFGenericRepository<Author> _authorRepository;
+        private AuthorService _authorService;
 
         public BookService(string connectionString)
         {
             _bookRepository = new BookRepository(connectionString);
-            _publicationRepository = new EFGenericRepository<PublicationHouse>(connectionString);
-            _authorRepository = new EFGenericRepository<Author>(connectionString);
+            _authorService = new AuthorService(connectionString);
         }
 
         public void AddBook(BookViewModel bookViewModel)
@@ -32,38 +30,46 @@ namespace Library.BLL.Services
             _bookRepository.Delete(id);
         }
         
-        public BookViewModel GetBook(int? id)
-        {
-            if (id == null)
-            {
-                throw new ValidationException("Id book not found", "");
-            }
-            var book = _bookRepository.Get(id.Value);
-            if (book == null)
-            {
-                throw new ValidationException("Book not found", "");
-            }
+        //public BookViewModel GetBook(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        throw new ValidationException("Id book not found", "");
+        //    }
+        //    var book = _bookRepository.Get(id.Value);
+        //    if (book == null)
+        //    {
+        //        throw new ValidationException("Book not found", "");
+        //    }
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<PublicationHouse, PublicationHouseViewModel>()).CreateMapper();
-            List<PublicationHouseViewModel> pH = new List<PublicationHouseViewModel>();
-            foreach (var i in book.PublicationHouses)
-            {
-                pH.Add(mapper.Map< PublicationHouse, PublicationHouseViewModel>( _publicationRepository.Get(i.Id)));
-            }
-            return new BookViewModel
-            {
-                Id = book.Id,
-                AuthorId = book.AuthorId,
-                Name = book.Name,
-                YearOfPublication = book.YearOfPublication,
-                PublicationHouses = pH
-            };
-        }
+        //    var mapperBook = new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<PublicationHouse, PublicationHouseViewModel>();
+        //        cfg.CreateMap<Book, BookViewModel>();
+        //    }).CreateMapper();
+        //    var result = mapperBook.Map<Book, BookViewModel>(book);
+        //    result.Author = _authorService.GetAuthor(result.AuthorId);
+        //    return result;
+        //}
 
         public IEnumerable<BookViewModel> GetBooks()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Book, BookViewModel>()).CreateMapper();
-            return mapper.Map<IEnumerable<Book>, List<BookViewModel>>(_bookRepository.GetAll());
+            List<Book> books = new List<Book>(_bookRepository.GetAll());
+            var mapperBook = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<PublicationHouse, PublicationHouseViewModel>();
+                cfg.CreateMap<Book, BookViewModel>();
+            }).CreateMapper();
+            List <BookViewModel> result = new List<BookViewModel>();
+            foreach (var i in books)
+            {
+                result.Add(mapperBook.Map<Book, BookViewModel>(i));
+            }
+            foreach (var i in result)
+            {
+                i.Author = _authorService.GetAuthor(i.AuthorId.Value);
+            }
+            return result;
         }
 
         public void UpdateBook(BookViewModel bookViewModel)

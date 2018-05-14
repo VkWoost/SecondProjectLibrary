@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Library.Enteties.Entities;
+using System.Collections.Generic;
 
 namespace Library.Entities.Entities
 {
-    public class Book
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+    public class Book : Basic
+    {       
         public int YearOfPublication { get; set; }
 
         public int? AuthorId { get; set; }

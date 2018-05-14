@@ -11,38 +11,46 @@ namespace Library.DAL.Repositories
         private DbContext _context;
         private DbSet<Book> _dbSet;
         private DbSet<Author> _authorDbSet;
-        private DbSet<PublicationHouse> _pHDbSet;
+        private DbSet<PublicationHouse> _pHSet;
 
         public BookRepository(string conn)
             : base(conn)
         {
             _context = new BookContext(conn);
             _dbSet = _context.Set<Book>();
+            _pHSet = _context.Set<PublicationHouse>();
             _authorDbSet = _context.Set<Author>();
-            _pHDbSet = _context.Set<PublicationHouse>();
         }
         
         public override void Create(Book item)
         {
             item.Author = _authorDbSet.Find(item.AuthorId);
-            
+            List<int> pHIds = new List<int>(item.PublicationHouses.Select(x => x.Id));
+            List<PublicationHouse> pH = new List<PublicationHouse>(_pHSet.Where(x => pHIds.Contains(x.Id)).ToList());
+            item.PublicationHouses = new List<PublicationHouse>(pH);
+
             _dbSet.Add(item);
             _context.SaveChanges();
         }
 
         public override void Update(Book item)
         {
-            var book = _dbSet.Include(x => x.PublicationHouses).Where(x => x.Id == item.Id).FirstOrDefault();
-            book.Author = _authorDbSet.Where(x => x.Id == item.AuthorId).FirstOrDefault();
+            Book book = _dbSet.Include(x => x.PublicationHouses).Where(z => z.Id == item.Id).FirstOrDefault();
             book.Name = item.Name;
+            book.AuthorId = item.AuthorId;
+            book.Author = _authorDbSet.Find(item.AuthorId);
             book.YearOfPublication = item.YearOfPublication;
-            book.PublicationHouses.Clear();
-            foreach (var i in item.PublicationHouses)
-            {
-                book.PublicationHouses.Add(_pHDbSet.Where(x => x.Id == i.Id).FirstOrDefault());
-            }            
+            List<int> pHIds = new List<int>(item.PublicationHouses.Select(x => x.Id));
+            List<PublicationHouse> pH = new List<PublicationHouse>(_pHSet.Where(x => pHIds.Contains(x.Id)).ToList());
+            book.PublicationHouses = new List<PublicationHouse>(pH);
+
             _context.Entry(book).State = EntityState.Modified;
             _context.SaveChanges();
+        }
+
+        public override IEnumerable<Book> GetAll()
+        {
+            return _dbSet.Include(x => x.PublicationHouses).AsNoTracking().ToList();
         }
     }
 }

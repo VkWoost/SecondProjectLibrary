@@ -1,9 +1,9 @@
-﻿namespace Library.Entities.Entities
+﻿using Library.Enteties.Entities;
+
+namespace Library.Entities.Entities
 {
-    public class Magazine
+    public class Magazine : Basic
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public int Number { get; set; }
         public int YearOfPublication { get; set; }
     }

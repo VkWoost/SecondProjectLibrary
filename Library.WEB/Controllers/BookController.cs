@@ -51,39 +51,34 @@ namespace Library.WEB.Controllers
             return Json(bookViewModel);
         }
 
-        [HttpGet]
-        public void SaveData(int? id)
-        {
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(BookViewModel));
-            BookViewModel book = _bookService.GetBook(id.Value);
-            var xml = "";
+        //[HttpGet]
+        //public void SaveData(int? id)
+        //{
+        //    XmlSerializer xsSubmit = new XmlSerializer(typeof(BookViewModel));
+        //    BookViewModel book = _bookService.GetBook(id.Value);
+        //    var xml = "";
 
-            using (var sww = new StringWriter())
-            {
-                using (XmlWriter writer = XmlWriter.Create(sww))
-                {
-                    xsSubmit.Serialize(writer, book);
-                    xml = sww.ToString();
+        //    using (var sww = new StringWriter())
+        //    {
+        //        using (XmlWriter writer = XmlWriter.Create(sww))
+        //        {
+        //            xsSubmit.Serialize(writer, book);
+        //            xml = sww.ToString();
 
-                    XmlDocument doc = new XmlDocument();
-                    doc.LoadXml(xml);
-                    doc.Save(Server.MapPath("~/uploads/book.xml"));
-                }
-            }
-            byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath("~/uploads/book.xml"));
-            string fileName = "book.xml";
-            File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-        }
+        //            XmlDocument doc = new XmlDocument();
+        //            doc.LoadXml(xml);
+        //            doc.Save(Server.MapPath("~/uploads/book.xml"));
+        //        }
+        //    }
+        //    byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath("~/uploads/book.xml"));
+        //    string fileName = "book.xml";
+        //    File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        //}
 
         [HttpGet]
         public ActionResult GetBooks()
         {
             var books = _bookService.GetBooks();
-            foreach(var i in books)
-            {
-                i.Author = _authorService.GetAuthor(i.AuthorId);
-                i.PublicationHouses = _bookService.GetBook(i.Id).PublicationHouses;
-            }
             return Json(books, JsonRequestBehavior.AllowGet);
         }
     }
