@@ -1,7 +1,7 @@
 ﻿using Library.BLL.Services;
 using System.Configuration;
 using System.Web.Mvc;
-using ViewModels.ViewModels;
+using Library.ViewModels.ViewModels;
 
 namespace Library.WEB.Controllers
 {

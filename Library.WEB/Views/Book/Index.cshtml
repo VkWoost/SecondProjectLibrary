@@ -121,7 +121,7 @@
                             { field: "Name", title: "Name" },
                             { field: "YearOfPublication", title: "Year Of Publication" },
                             { field: "Author.Name", title: "Author", editor: authorEditor },
-                            { field: "PublicationHouses", title: "Publication Houses", editor: phEditor, template: pHNames },
+                            { field: "PublicationHouses", title: "Publication Houses", editor: phEditor/*, template: pHNames*/ },
                             { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
                         editable: "popup"
                     });
@@ -170,9 +170,9 @@
                         dataValueField: "Id",
                     });
             }
-            function pHNames(options) {
-                return options.PublicationHouses.map(x => x.Name).join(",");
-            }
+            //function pHNames(options) {
+            //    return options.PublicationHouses.map(x => x.Name).join(",");
+            //}
         </script>
     </div>
 </body>

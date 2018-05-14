@@ -2,9 +2,9 @@
 using Library.BLL.Infrastructure;
 using Library.DAL.Interfaces;
 using Library.DAL.Repositories;
-using Library.Enteties.Entities;
+using Library.Entities.Entities;
 using System.Collections.Generic;
-using ViewModels.ViewModels;
+using Library.ViewModels.ViewModels;
 
 namespace Library.BLL.Services
 {

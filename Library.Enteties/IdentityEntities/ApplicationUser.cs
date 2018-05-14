@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace Library.DAL.Identity.Entities
+namespace Library.Enteties.IdentityEntities
 {
     public class ApplicationUser : IdentityUser
     {

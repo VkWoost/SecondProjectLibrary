@@ -1,4 +1,4 @@
-﻿namespace ViewModels.ViewModels
+﻿namespace Library.ViewModels.ViewModels
 {
     public class MagazineViewModel
     {

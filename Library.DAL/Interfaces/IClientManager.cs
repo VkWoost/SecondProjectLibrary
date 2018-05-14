@@ -1,4 +1,4 @@
-﻿using Library.DAL.Identity.Entities;
+﻿using Library.Enteties.IdentityEntities;
 using System;
 
 namespace Library.DAL.Interfaces

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ViewModels.ViewModels
+namespace Library.ViewModels.ViewModels
 {
     public class PublicationHouseViewModel
     {

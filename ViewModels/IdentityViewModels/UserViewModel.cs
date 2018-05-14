@@ -1,4 +1,4 @@
-﻿namespace ViewModels.IdentityViewModels
+﻿namespace Library.ViewModels.IdentityViewModels
 {
     public class UserViewModel
     {

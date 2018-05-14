@@ -8,8 +8,8 @@ namespace Library.DAL.Repositories
 {
     public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        DbContext _context;
-        DbSet<TEntity> _dbSet;
+        private DbContext _context;
+        private DbSet<TEntity> _dbSet;
 
         public EFGenericRepository(string conn)
         {
@@ -27,13 +27,13 @@ namespace Library.DAL.Repositories
             return _dbSet.AsNoTracking().ToList();
         }
         
-        public void Create(TEntity item)
+        public virtual void Create(TEntity item)
         {
             _dbSet.Add(item);
             _context.SaveChanges();
         }
 
-        public void Update(TEntity item)
+        public virtual void Update(TEntity item)
         {
             _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();

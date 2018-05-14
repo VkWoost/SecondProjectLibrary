@@ -1,4 +1,4 @@
-﻿using Library.Enteties.Entities;
+﻿using Library.Entities.Entities;
 using System.Data.Entity;
 
 namespace Library.DAL.EF

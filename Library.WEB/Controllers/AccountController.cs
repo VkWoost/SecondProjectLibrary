@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using ViewModels.IdentityViewModels;
+using Library.ViewModels.IdentityViewModels;
 
 namespace Library.WEB.Controllers
 {

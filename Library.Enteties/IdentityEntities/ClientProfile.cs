@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Library.DAL.Identity.Entities
+namespace Library.Enteties.IdentityEntities
 {
     public class ClientProfile
     {
