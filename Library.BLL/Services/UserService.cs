@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Library.ViewModels.IdentityViewModels;
+using Library.Enteties.IdentityEnums;
 
 namespace Library.BLL.Services
 {
@@ -28,7 +29,8 @@ namespace Library.BLL.Services
                 var result = await Database.UserManager.CreateAsync(user, userViewModel.Password);
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
-                await Database.UserManager.AddToRoleAsync(user.Id, userViewModel.Role);
+                userViewModel.Role = IdentityRoles.user.ToString();
+                await Database.UserManager.AddToRoleAsync(user.Id, userViewModel.Role);              
                 ClientProfile clientProfile = new ClientProfile { Id = user.Id };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();

@@ -54,13 +54,13 @@ namespace Library.WEB.Controllers
                     }, claim);
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Book");
         }
 
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Book");
         }
 
         public ActionResult Register()
@@ -77,8 +77,7 @@ namespace Library.WEB.Controllers
                 UserViewModel userViewModel = new UserViewModel
                 {
                     Email = model.Email,
-                    Password = model.Password,
-                    Role = "user"
+                    Password = model.Password
                 };
                 OperationDetails operationDetails = await UserService.Create(userViewModel);
                 if (operationDetails.Succedeed)

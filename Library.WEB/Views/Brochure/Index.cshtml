@@ -86,9 +86,8 @@
                     }
                 });
 
-                var user = '@User.Identity.Name'
-                admin = "admin@gmail.com"
-                if (user == admin) {
+                if ("@User.IsInRole("admin")" == "True")
+                {
                     $("#grid").kendoGrid({
                         dataSource: dataSource,
                         pageable: true,

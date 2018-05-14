@@ -1,7 +1,6 @@
 ﻿@{
-    var user = @User.Identity.Name;
-    var admin = "admin@gmail.com";
-    if (user == admin)
+    var admin = @User.IsInRole("admin");
+    if (admin)
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
     else
         Layout = "~/Views/Shared/_Layout.cshtml";

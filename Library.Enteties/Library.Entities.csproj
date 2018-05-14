@@ -62,6 +62,7 @@
     <Compile Include="IdentityEntities\ApplicationRole.cs" />
     <Compile Include="IdentityEntities\ApplicationUser.cs" />
     <Compile Include="IdentityEntities\ClientProfile.cs" />
+    <Compile Include="IdentityEnums\IdentityRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
