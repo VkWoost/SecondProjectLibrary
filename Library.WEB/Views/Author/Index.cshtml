@@ -1,24 +1,4 @@
-﻿@{
-    var user = @User.Identity.Name;
-    var admin = "admin@gmail.com";
-    if (user == admin)
-        Layout = "~/Views/Shared/_AdminLayout.cshtml";  
-    else
-        Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <link href="~/kendoui/styles/kendo.common.min.css" rel="stylesheet" />
-    <link href="~/kendoui/styles/kendo.default.min.css" rel="stylesheet" />
-    <link href="~/kendoui/styles/kendo.default.mobile.min.css" rel="stylesheet" />
-
-    <script src="~/kendoui/js/jquery.min.js"></script>
-    <script src="~/kendoui/js/kendo.all.min.js"></script>
-
-</head>
-<body>
+﻿
     <div id="example">
         <div id="grid"></div>
 
@@ -127,12 +107,9 @@
                     height: 550,
                     columns: [
                         { field: "Name", title: "Name" },
-                        ],
-                    editable: "popup"
+                        ]
                 });
                  }
             });
         </script>
     </div>
-</body>
-</html>

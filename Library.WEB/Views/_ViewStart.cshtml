@@ -1,3 +1,8 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = @User.Identity.Name;
+    var admin = "admin@gmail.com";
+    if (user == admin)
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    else
+        Layout = "~/Views/Shared/_Layout.cshtml";
 }

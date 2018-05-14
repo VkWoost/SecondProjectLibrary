@@ -1,26 +1,6 @@
-﻿@{
-    var user = @User.Identity.Name;
-    var admin = "admin@gmail.com";
-    if (user == admin)
-        Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    else
-        Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <link href="~/kendoui/styles/kendo.common.min.css" rel="stylesheet" />
-    <link href="~/kendoui/styles/kendo.default.min.css" rel="stylesheet" />
-    <link href="~/kendoui/styles/kendo.default.mobile.min.css" rel="stylesheet" />
-
-    <script src="~/kendoui/js/jquery.min.js"></script>
-    <script src="~/kendoui/js/kendo.all.min.js"></script>
-
-</head>
-<body>
-    <div id="example">
+<div id="example">
         <div id="grid"></div>
 
         <script>
@@ -135,9 +115,8 @@
                             { field: "Name", title: "Name" },
                             { field: "YearOfPublication", title: "Year Of Publication" },
                             { field: "Author.Name", title: "Author" },
-                            { field: "PublicationHouses", title: "Publication Houses" },
-                            ],
-                        editable: "popup"
+                            { field: "PublicationHouses", title: "Publication Houses", template: pHNames },
+                            ]
                     });
                 }
             });
@@ -171,9 +150,10 @@
                     });
             }
             function pHNames(options) {
-                return options.PublicationHouses.map(x => x.Name).join(",");
+                if (options.PublicationHouses) {
+                    return options.PublicationHouses.map(x => x.Name).join(",");
+                }
             }
         </script>
-    </div>
-</body>
-</html>
+</div>
+

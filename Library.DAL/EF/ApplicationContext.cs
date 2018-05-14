@@ -9,6 +9,5 @@ namespace Library.DAL.EF
         public ApplicationContext(string conectionString) : base(conectionString) { }
 
         public DbSet<ClientProfile> ClientProfiles { get; set; }
-
     }
 }
