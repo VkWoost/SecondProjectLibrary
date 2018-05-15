@@ -1,17 +1,14 @@
-﻿<script src="~/Scripts/KendoGrid/AdminBook.js"></script>
-<script src="~/Scripts/KendoGrid/Book.js"></script>
+﻿@using Library.ViewModels.IdentityEnums
 
 <div id="example">
     <div id="grid"></div>
-
-    <script>
-        if ("@User.IsInRole("admin")" == "True") {
-            AdminBook()
-        }
-        else{
-            Book()
-        }
-    </script>
-    
+    @if (User.IsInRole(IdentityRolesViewModels.admin.ToString()))
+    {
+        <script src="~/Scripts/KendoGrid/AdminBook.js"></script>
+    }
+    else
+    {
+        <script src="~/Scripts/KendoGrid/Book.js"></script>
+    }
 </div>
 

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IdentityEnums\IdentityRolesViewModel.cs" />
     <Compile Include="IdentityViewModels\LoginViewModel.cs" />
     <Compile Include="IdentityViewModels\RegisterViewModel.cs" />
     <Compile Include="IdentityViewModels\UserViewModel.cs" />

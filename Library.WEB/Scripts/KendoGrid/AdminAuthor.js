@@ -1,5 +1,4 @@
-﻿function AdminAuthor() {
-$(document).ready(function () {
+﻿$(document).ready(function () {
     dataSource = new kendo.data.DataSource({
         transport:
             {
@@ -85,4 +84,3 @@ $(document).ready(function () {
         editable: "popup"
     });
 });
-}
