@@ -4,53 +4,139 @@ using Library.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 
 namespace Library.DAL.Repositories
 {
     public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : Basic
     {
-        private DbContext _context;
-        private DbSet<TEntity> _dbSet;
+        private string _connectionString;
 
         public EFGenericRepository(string conn)
         {
-            _context = new BookContext(conn);
-            _dbSet = _context.Set<TEntity>();
+            _connectionString = conn;
         }
 
         public TEntity Get(int id)
         {
-            return _dbSet.Find(id);
+            string _sqlGet = String.Format("SELECT * FROM {0}s WHERE Id = {1}", typeof(TEntity).Name, id);
+            TEntity item = (TEntity)Activator.CreateInstance(typeof(TEntity));
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(_sqlGet, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        int temp = 0;
+                        foreach (var i in item.GetType().GetProperties())
+                        {
+                            i.SetValue(item, reader.GetValue(temp++));
+                        }
+                    }
+                }
+            }
+            return item;
         }
 
         public virtual IEnumerable<TEntity> GetAll()
         {
-            return _dbSet.AsNoTracking().ToList();
-        }
+            string _sqlGetAll = String.Format("SELECT * FROM {0}s", typeof(TEntity).Name);
+            List<TEntity> result = new List<TEntity>();
 
-        public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
-        {
-            return _dbSet.AsNoTracking().Where(predicate).ToList();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(_sqlGetAll, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        TEntity item = (TEntity)Activator.CreateInstance(typeof(TEntity));
+                        int temp = 0;
+                        foreach (var i in item.GetType().GetProperties())
+                        {
+                            i.SetValue(item, reader.GetValue(temp++));
+                        }
+                        result.Add(item);
+                    }
+                }
+                return result;
+            }
         }
 
         public virtual void Create(TEntity item)
         {
-            _dbSet.Add(item);
-            _context.SaveChanges();
+            var stringOfColumns = string.Join(", ", GetColumnsWithoutId());
+            var stringOfParameters = string.Join(", ", GetColumnsWithoutId().Select(e => "@" + e));
+            string _sqlCreate = String.Format("INSERT INTO {0}s ({1}) VALUES ({2})", typeof(TEntity).Name, stringOfColumns, stringOfParameters);
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(_sqlCreate, connection);
+                List<string> list = new List<string>(GetColumnsWithoutId());
+                int temp = 0;
+                var types = item.GetType().GetProperties().Where(x => x.Name != "Id");
+                foreach (var i in types)
+                {
+                    command.Parameters.Add(new SqlParameter(String.Format("@{0}", list[temp++]), i.GetValue(item)));
+                }
+                command.ExecuteNonQuery();
+            }
         }
 
         public virtual void Update(TEntity item)
         {
-            _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
+            var stringOfColumns = string.Join(", ", GetColumnsWithoutId().Select(e => $"{e} = @{e}"));
+            string _sqlUpdate = String.Format("UPDATE {0}s SET {1} WHERE Id = @Id", typeof(TEntity).Name, stringOfColumns);
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(_sqlUpdate, connection);
+
+                List<string> list = new List<string>(GetColumns());
+                int temp = 0;
+                foreach (var i in item.GetType().GetProperties())
+                {
+                    command.Parameters.Add(new SqlParameter(String.Format("@{0}", list[temp++]), i.GetValue(item)));
+                }
+                command.ExecuteNonQuery();
+            }
         }
 
         public void Delete(int id)
         {
-            var item = _dbSet.Find(id);
-            _dbSet.Remove(item);
-            _context.SaveChanges();
+            string _sqlDelete = String.Format("DELETE FROM {0}s WHERE id = {1}", typeof(TEntity).Name, id);
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(_sqlDelete, connection);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private IEnumerable<string> GetColumns()
+        {
+            return typeof(TEntity)
+                    .GetProperties()
+                    .Select(e => e.Name);
+        }
+
+        private IEnumerable<string> GetColumnsWithoutId()
+        {
+            return typeof(TEntity)
+                    .GetProperties()
+                    .Where(e => e.Name != "Id" && !e.PropertyType.GetTypeInfo().IsGenericType)
+                    .Select(e => e.Name);
         }
     }
 }

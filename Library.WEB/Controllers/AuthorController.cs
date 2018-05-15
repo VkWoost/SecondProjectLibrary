@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Web.Mvc;
 using Library.ViewModels.ViewModels;
+using Library.ViewModels.IdentityEnums;
 
 namespace Library.WEB.Controllers
 {
@@ -20,14 +21,14 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult AddAuthor(AuthorViewModel authorViewModel)
         {
             _authorService.AddAuthor(authorViewModel);
             return Json(authorViewModel);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult DeleteAuthor(int id)
         {
             _authorService.DeleteAuthor(id);
@@ -35,7 +36,7 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult AuthorEdit(AuthorViewModel authorViewModel)
         {
             _authorService.UpdateAuthor(authorViewModel);

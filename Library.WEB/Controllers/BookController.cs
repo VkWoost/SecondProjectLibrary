@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using Library.BLL.Services;
 using System.Configuration;
+using Library.ViewModels.IdentityEnums;
 
 namespace Library.WEB.Controllers
 {
@@ -27,7 +28,7 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult AddBook(BookViewModel bookViewModel)
         {
             bookViewModel.Author = _authorService.GetAuthor(bookViewModel.AuthorId);
@@ -35,7 +36,7 @@ namespace Library.WEB.Controllers
             return Json(bookViewModel);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult DeleteBook(int id)
         {
             _bookService.DeleteBook(id);
@@ -43,7 +44,7 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult BookEdit(BookViewModel bookViewModel)
         {
             bookViewModel.Author = _authorService.GetAuthor(bookViewModel.AuthorId);

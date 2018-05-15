@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Serialization;
 using Library.ViewModels.ViewModels;
+using Library.ViewModels.IdentityEnums;
 
 namespace Library.WEB.Controllers
 {
@@ -24,14 +25,14 @@ namespace Library.WEB.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult AddBrochure(BrochureViewModel brochureViewModel)
         {
             _brochureService.AddBrochure(brochureViewModel);
             return Json(brochureViewModel);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult DeleteBrochure(int id)
         {
             _brochureService.DeleteBrochure(id);
@@ -39,7 +40,7 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult BrochureEdit(BrochureViewModel brochureViewModel)
         {
             _brochureService.UpdateBrochure(brochureViewModel);

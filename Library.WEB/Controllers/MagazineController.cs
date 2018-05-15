@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Serialization;
 using Library.ViewModels.ViewModels;
+using Library.ViewModels.IdentityEnums;
 
 namespace Library.WEB.Controllers
 {
@@ -23,14 +24,14 @@ namespace Library.WEB.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult AddMagazine(MagazineViewModel magazineViewModel)
         {
             _magazineService.AddMagazine(magazineViewModel);
             return Json(magazineViewModel);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult DeleteMagazine(int id)
         {
             _magazineService.DeleteMagazine(id);
@@ -38,7 +39,7 @@ namespace Library.WEB.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult MagazineEdit(MagazineViewModel magazineViewModel)
         {
             _magazineService.UpdateMagazine(magazineViewModel);

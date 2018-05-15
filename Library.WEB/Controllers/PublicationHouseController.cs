@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Web.Mvc;
 using Library.ViewModels.ViewModels;
+using Library.ViewModels.IdentityEnums;
 
 namespace Library.WEB.Controllers
 {
@@ -22,14 +23,14 @@ namespace Library.WEB.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult AddPublicationHouse(PublicationHouseViewModel publicationHouseViewModel)
         {
             _publicationHouseService.AddPublicationHouse(publicationHouseViewModel);
             return Json(publicationHouseViewModel);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult DeletePublicationHouse(int id)
         {
             _publicationHouseService.DeletePublicationHouse(id);
@@ -37,7 +38,7 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = IdentityRolesViewModels.admin)]
         public ActionResult PublicationHouseEdit(PublicationHouseViewModel publicationHouseViewModel)
         {
             _publicationHouseService.UpdatePublicationHouse(publicationHouseViewModel);
