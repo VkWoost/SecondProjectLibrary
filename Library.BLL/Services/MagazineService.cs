@@ -37,11 +37,14 @@ namespace Library.BLL.Services
         public MagazineViewModel GetMagazine(int? id)
         {
             if (id == null)
+            {
                 throw new ValidationException("Id magazine not found", "");
+            }
             var magazine = _magazineRepository.Get(id.Value);
             if (magazine == null)
+            {
                 throw new ValidationException("Magazine not found", "");
-
+            }
             return new MagazineViewModel { Id = magazine.Id, Name = magazine.Name, Number = magazine.Number, YearOfPublication = magazine.YearOfPublication };
         }
 

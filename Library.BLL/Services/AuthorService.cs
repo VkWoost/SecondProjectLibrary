@@ -39,11 +39,14 @@ namespace Library.BLL.Services
         public AuthorViewModel GetAuthor(int? id)
         {
             if (id == null)
+            {
                 throw new ValidationException("Id author not found", "");
+            }
             var author = _authorRepository.Get(id.Value);
             if (author == null)
+            {
                 throw new ValidationException("Author not found", "");
-
+            }
             return new AuthorViewModel { Id = author.Id, Name = author.Name };
         }
 

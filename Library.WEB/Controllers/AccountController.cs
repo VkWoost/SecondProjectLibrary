@@ -45,7 +45,7 @@ namespace Library.WEB.Controllers
                 {
                     ModelState.AddModelError("", "Wrong login or password.");
                 }
-                else
+                if (claim != null)
                 {
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties
@@ -81,9 +81,13 @@ namespace Library.WEB.Controllers
                 };
                 OperationDetails operationDetails = await UserService.Create(userViewModel);
                 if (operationDetails.Succedeed)
+                {
                     return View("SuccessRegister");
-                else
+                }
+                if (!operationDetails.Succedeed)
+                {
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
+                }
             }
             return View(model);
         }

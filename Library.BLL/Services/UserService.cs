@@ -36,10 +36,11 @@ namespace Library.BLL.Services
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Registration successful", "");
             }
-            else
+            if (user != null)
             {
                 return new OperationDetails(false, "User with such login already exists", "Email");
             }
+            return new OperationDetails(false, "Error while registering this email: ", "Email");
         }
 
         public async Task<ClaimsIdentity> Authenticate(UserViewModel userViewModel)
@@ -47,8 +48,10 @@ namespace Library.BLL.Services
             ClaimsIdentity claim = null;
             ApplicationUser user = await Database.UserManager.FindAsync(userViewModel.Email, userViewModel.Password);
             if (user != null)
+            {
                 claim = await Database.UserManager.CreateIdentityAsync(user,
                                             DefaultAuthenticationTypes.ApplicationCookie);
+            }
             return claim;
         }
 
