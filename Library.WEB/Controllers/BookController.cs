@@ -28,7 +28,7 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = IdentityRolesViewModels.admin)]
+        [Authorize(Roles = IdentityRolesViewModels.Admin)]
         public ActionResult AddBook(BookViewModel bookViewModel)
         {
             bookViewModel.Author = _authorService.GetAuthor(bookViewModel.AuthorId);
@@ -36,7 +36,7 @@ namespace Library.WEB.Controllers
             return Json(bookViewModel);
         }
 
-        [Authorize(Roles = IdentityRolesViewModels.admin)]
+        [Authorize(Roles = IdentityRolesViewModels.Admin)]
         public ActionResult DeleteBook(int id)
         {
             _bookService.DeleteBook(id);
@@ -44,7 +44,7 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = IdentityRolesViewModels.admin)]
+        [Authorize(Roles = IdentityRolesViewModels.Admin)]
         public ActionResult BookEdit(BookViewModel bookViewModel)
         {
             bookViewModel.Author = _authorService.GetAuthor(bookViewModel.AuthorId);

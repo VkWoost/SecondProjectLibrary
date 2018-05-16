@@ -275,7 +275,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Content\_AdminLayout\ie10-viewport-bug-workaround.css" />
     <Content Include="Scripts\_AdminLayout\ie-emulation-modes-warning.js" />
     <Content Include="Scripts\_AdminLayout\ie10-viewport-bug-workaround.js" />
     <Content Include="Scripts\_AdminLayout\holder.min.js" />

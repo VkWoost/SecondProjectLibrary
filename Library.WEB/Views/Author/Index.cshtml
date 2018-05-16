@@ -2,11 +2,11 @@
 
 <div id="example">
     <div id="grid"></div>
-    @if (User.IsInRole(IdentityRolesViewModels.admin))
+    @if (User.IsInRole(IdentityRolesViewModels.Admin))
     {
         <script src="~/Scripts/KendoGrid/Author.js"></script>
     }
-    @if(User.IsInRole(IdentityRolesViewModels.user))
+    @if(User.IsInRole(IdentityRolesViewModels.User))
     {
         <script src="~/Scripts/KendoGrid/AdminAuthor.js"></script>
     }

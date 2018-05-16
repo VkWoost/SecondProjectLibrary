@@ -24,14 +24,14 @@ namespace Library.WEB.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = IdentityRolesViewModels.admin)]
+        [Authorize(Roles = IdentityRolesViewModels.Admin)]
         public ActionResult AddMagazine(MagazineViewModel magazineViewModel)
         {
             _magazineService.AddMagazine(magazineViewModel);
             return Json(magazineViewModel);
         }
 
-        [Authorize(Roles = IdentityRolesViewModels.admin)]
+        [Authorize(Roles = IdentityRolesViewModels.Admin)]
         public ActionResult DeleteMagazine(int id)
         {
             _magazineService.DeleteMagazine(id);
@@ -39,7 +39,7 @@ namespace Library.WEB.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = IdentityRolesViewModels.admin)]
+        [Authorize(Roles = IdentityRolesViewModels.Admin)]
         public ActionResult MagazineEdit(MagazineViewModel magazineViewModel)
         {
             _magazineService.UpdateMagazine(magazineViewModel);

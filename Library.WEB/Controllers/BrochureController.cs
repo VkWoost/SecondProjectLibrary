@@ -25,14 +25,14 @@ namespace Library.WEB.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = IdentityRolesViewModels.admin)]
+        [Authorize(Roles = IdentityRolesViewModels.Admin)]
         public ActionResult AddBrochure(BrochureViewModel brochureViewModel)
         {
             _brochureService.AddBrochure(brochureViewModel);
             return Json(brochureViewModel);
         }
 
-        [Authorize(Roles = IdentityRolesViewModels.admin)]
+        [Authorize(Roles = IdentityRolesViewModels.Admin)]
         public ActionResult DeleteBrochure(int id)
         {
             _brochureService.DeleteBrochure(id);
@@ -40,7 +40,7 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = IdentityRolesViewModels.admin)]
+        [Authorize(Roles = IdentityRolesViewModels.Admin)]
         public ActionResult BrochureEdit(BrochureViewModel brochureViewModel)
         {
             _brochureService.UpdateBrochure(brochureViewModel);
