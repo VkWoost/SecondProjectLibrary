@@ -6,7 +6,7 @@
     {
         <script src="~/Scripts/KendoGrid/AdminPublicationHouse.js"></script>
     }
-    @if (User.IsInRole(IdentityRolesViewModels.User))
+    @if (!User.IsInRole(IdentityRolesViewModels.Admin))
     {
         <script src="~/Scripts/KendoGrid/PublicationHouse.js"></script>
     }

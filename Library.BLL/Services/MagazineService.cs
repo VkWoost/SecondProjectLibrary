@@ -10,6 +10,7 @@ namespace Library.BLL.Services
     public class MagazineService
     {
         private EFGenericRepository<Magazine> _magazineRepository;
+        private IMapper _mappper = MapperService.InitializeAutoMapper().CreateMapper();
 
         public MagazineService(string connectionString)
         {
@@ -18,8 +19,7 @@ namespace Library.BLL.Services
 
         public void AddMagazine(MagazineViewModel magazineViewModel)
         {
-            Magazine magazine = new Magazine { Name = magazineViewModel.Name, Number = magazineViewModel.Number, YearOfPublication = magazineViewModel.YearOfPublication };
-            _magazineRepository.Create(magazine);
+            _magazineRepository.Create(_mappper.Map<MagazineViewModel, Magazine>(magazineViewModel));
         }
 
         public void DeleteMagazine(int id)
@@ -29,8 +29,7 @@ namespace Library.BLL.Services
 
         public IEnumerable<MagazineViewModel> GetMagazines()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Magazine, MagazineViewModel>()).CreateMapper();
-            return mapper.Map<IEnumerable<Magazine>, List<MagazineViewModel>>(_magazineRepository.GetAll());
+            return _mappper.Map<IEnumerable<Magazine>, List<MagazineViewModel>>(_magazineRepository.GetAll());
         }
 
         public MagazineViewModel GetMagazine(int? id)
@@ -44,14 +43,12 @@ namespace Library.BLL.Services
             {
                 throw new ValidationException("Magazine not found", "");
             }
-            return new MagazineViewModel { Id = magazine.Id, Name = magazine.Name, Number = magazine.Number, YearOfPublication = magazine.YearOfPublication };
+            return _mappper.Map<Magazine, MagazineViewModel>(magazine);
         }
 
         public void UpdateMagazine(MagazineViewModel magazineViewModel)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<MagazineViewModel, Magazine>()).CreateMapper();
-            var magazine = mapper.Map<MagazineViewModel, Magazine>(magazineViewModel);
-            _magazineRepository.Update(magazine);
+            _magazineRepository.Update(_mappper.Map<MagazineViewModel,Magazine>(magazineViewModel));
         }
     }
 }

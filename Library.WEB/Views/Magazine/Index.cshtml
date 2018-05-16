@@ -4,10 +4,10 @@
     <div id="grid"></div>
     @if (User.IsInRole(IdentityRolesViewModels.Admin))
     {
-        <script src="~/Scripts/KendoGrid/AdminBrochure.js"></script>
+        <script src="~/Scripts/KendoGrid/AdminMagazine.js"></script>
     }
-    @if (User.IsInRole(IdentityRolesViewModels.User))
+    @if (!User.IsInRole(IdentityRolesViewModels.Admin))
     {
-        <script src="~/Scripts/KendoGrid/Brochure.js"></script>
+        <script src="~/Scripts/KendoGrid/Magazine.js"></script>
     }
 </div>
