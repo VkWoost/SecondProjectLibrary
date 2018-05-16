@@ -21,9 +21,7 @@ namespace Library.BLL.Services
 
         public void AddBook(BookViewModel bookViewModel)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<BookViewModel, Book>()).CreateMapper();
-            var book = mapper.Map<BookViewModel, Book>(bookViewModel);
-            _bookRepository.Create(book);
+            _bookRepository.Create(Mapper.Map<BookViewModel, Book>(bookViewModel));
         }
 
         public void DeleteBook(int id)
@@ -56,15 +54,10 @@ namespace Library.BLL.Services
         public IEnumerable<BookViewModel> GetBooks()
         {
             List<Book> books = new List<Book>(_bookRepository.GetAll());
-            var mapperBook = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<PublicationHouse, PublicationHouseViewModel>();
-                cfg.CreateMap<Book, BookViewModel>();
-            }).CreateMapper();
             List <BookViewModel> result = new List<BookViewModel>();
             foreach (var book in books)
             {
-                result.Add(mapperBook.Map<Book, BookViewModel>(book));
+                result.Add(Mapper.Map<Book, BookViewModel>(book));
             }
             var authors = _authorService.GetAuthors();
             foreach (var book in result)
@@ -76,9 +69,7 @@ namespace Library.BLL.Services
 
         public void UpdateBook(BookViewModel bookViewModel)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<BookViewModel, Book>()).CreateMapper();
-            var book = mapper.Map<BookViewModel, Book>(bookViewModel);
-            _bookRepository.Update(book);
+            _bookRepository.Update(Mapper.Map<BookViewModel, Book>(bookViewModel));
         }      
     }
 }

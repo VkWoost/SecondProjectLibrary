@@ -18,12 +18,7 @@ namespace Library.BLL.Services
 
         public void AddPublicationHouse(PublicationHouseViewModel publicationHouseViewModel)
         {
-            PublicationHouse publicationHouse = new PublicationHouse
-            {
-                Name = publicationHouseViewModel.Name,
-                Adress = publicationHouseViewModel.Adress
-            };
-            _publicationServiceRepository.Create(publicationHouse);
+            _publicationServiceRepository.Create(Mapper.Map<PublicationHouseViewModel, PublicationHouse>(publicationHouseViewModel));
         }
 
         public void DeletePublicationHouse(int id)
@@ -38,21 +33,17 @@ namespace Library.BLL.Services
             {
                 throw new ValidationException("Publication House not found", "");
             }
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<PublicationHouse, PublicationHouseViewModel>()).CreateMapper();
-            return mapper.Map<PublicationHouse, PublicationHouseViewModel>(publicationHouse);
+            return Mapper.Map<PublicationHouse, PublicationHouseViewModel>(publicationHouse);
         }
 
         public IEnumerable<PublicationHouseViewModel> GetPublicationHouses()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<PublicationHouse, PublicationHouseViewModel>()).CreateMapper();
-            return mapper.Map<IEnumerable<PublicationHouse>, List<PublicationHouseViewModel>>(_publicationServiceRepository.GetAll());
+            return Mapper.Map<IEnumerable<PublicationHouse>, List<PublicationHouseViewModel>>(_publicationServiceRepository.GetAll());
         }
 
         public void UpdatePublicationHouse(PublicationHouseViewModel publicationHouseViewModel)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<PublicationHouseViewModel, PublicationHouse>()).CreateMapper();
-            var publicationHouse = mapper.Map<PublicationHouseViewModel, PublicationHouse>(publicationHouseViewModel);
-            _publicationServiceRepository.Update(publicationHouse);
+            _publicationServiceRepository.Update(Mapper.Map<PublicationHouseViewModel, PublicationHouse>(publicationHouseViewModel));
         }
     }
 }

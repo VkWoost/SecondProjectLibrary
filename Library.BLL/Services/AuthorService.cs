@@ -18,11 +18,7 @@ namespace Library.BLL.Services
 
         public void AddAuthor(AuthorViewModel authorViewModel)
         {
-            Author author = new Author
-            {
-                Name = authorViewModel.Name,
-            };
-            _authorRepository.Create(author);
+            _authorRepository.Create(Mapper.Map<AuthorViewModel, Author>(authorViewModel));
         }
 
         public void DeleteAuthor(int id)
@@ -32,8 +28,7 @@ namespace Library.BLL.Services
 
         public IEnumerable<AuthorViewModel> GetAuthors()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Author, AuthorViewModel>()).CreateMapper();
-            return mapper.Map<IEnumerable<Author>, List<AuthorViewModel>>(_authorRepository.GetAll());
+            return Mapper.Map<IEnumerable<Author>, List<AuthorViewModel>>(_authorRepository.GetAll());
         }
 
         public AuthorViewModel GetAuthor(int? id)
@@ -47,14 +42,12 @@ namespace Library.BLL.Services
             {
                 throw new ValidationException("Author not found", "");
             }
-            return new AuthorViewModel { Id = author.Id, Name = author.Name };
+            return Mapper.Map<Author, AuthorViewModel>(author);
         }
 
         public void UpdateAuthor(AuthorViewModel authorViewModel)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<AuthorViewModel, Author>()).CreateMapper();
-            var author = mapper.Map<AuthorViewModel, Author>(authorViewModel);
-            _authorRepository.Update(author);
+            _authorRepository.Update(Mapper.Map<AuthorViewModel, Author>(authorViewModel));
         }
     }
 }

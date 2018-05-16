@@ -18,13 +18,7 @@ namespace Library.BLL.Services
 
         public void AddBrochure(BrochureViewModel brochureViewModel)
         {
-            Brochure brochure = new Brochure
-            {
-                Name = brochureViewModel.Name,
-                NumberOfPages = brochureViewModel.NumberOfPages,
-                TypeOfCover = brochureViewModel.TypeOfCover
-            };
-            _brochureRepository.Create(brochure);
+            _brochureRepository.Create(Mapper.Map<BrochureViewModel, Brochure>(brochureViewModel));
         }
 
         public void DeleteBrochure(int id)
@@ -43,20 +37,17 @@ namespace Library.BLL.Services
             {
                 throw new ValidationException("Brochure not found", "");
             }
-            return new BrochureViewModel { Id = brochure.Id, Name = brochure.Name, NumberOfPages = brochure.NumberOfPages, TypeOfCover = brochure.TypeOfCover };
+            return Mapper.Map<Brochure, BrochureViewModel>(brochure);
         }
 
         public IEnumerable<BrochureViewModel> GetBrochures()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Brochure, BrochureViewModel>()).CreateMapper();
-            return mapper.Map<IEnumerable<Brochure>, List<BrochureViewModel>>(_brochureRepository.GetAll());
+            return Mapper.Map<IEnumerable<Brochure>, List<BrochureViewModel>>(_brochureRepository.GetAll());
         }
 
         public void UpdateBrochure(BrochureViewModel brochureViewModel)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<BrochureViewModel, Brochure>()).CreateMapper();
-            var brochure = mapper.Map<BrochureViewModel, Brochure>(brochureViewModel);
-            _brochureRepository.Update(brochure);
+            _brochureRepository.Update(Mapper.Map<BrochureViewModel, Brochure>(brochureViewModel));
         }
     }
 }

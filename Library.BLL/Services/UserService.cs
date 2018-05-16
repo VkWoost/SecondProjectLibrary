@@ -28,7 +28,9 @@ namespace Library.BLL.Services
                 user = new ApplicationUser { Email = userViewModel.Email, UserName = userViewModel.Email };
                 var result = await Database.UserManager.CreateAsync(user, userViewModel.Password);
                 if (result.Errors.Count() > 0)
+                {
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
+                }
                 userViewModel.Role = IdentityRoles.user.ToString();
                 await Database.UserManager.AddToRoleAsync(user.Id, userViewModel.Role);              
                 ClientProfile clientProfile = new ClientProfile { Id = user.Id };
