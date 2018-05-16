@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Library.BLL.Infrastructure;
-using Library.DAL.Interfaces;
 using Library.DAL.Repositories;
 using Library.Entities.Entities;
 using System.Collections.Generic;

@@ -12,7 +12,7 @@ namespace Library.WEB.Controllers
 {
     public class BrochureController : Controller
     {
-        BrochureService _brochureService;
+        private BrochureService _brochureService;
 
         public BrochureController()
         {

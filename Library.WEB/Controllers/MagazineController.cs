@@ -11,7 +11,7 @@ namespace Library.WEB.Controllers
 {
     public class MagazineController : Controller
     {
-        MagazineService _magazineService;
+        private MagazineService _magazineService;
 
         public MagazineController()
         {

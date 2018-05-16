@@ -8,7 +8,7 @@ namespace Library.WEB.Controllers
 {
     public class AuthorController : Controller
     {
-        AuthorService _authorService;
+        private AuthorService _authorService;
 
         public AuthorController()
         {

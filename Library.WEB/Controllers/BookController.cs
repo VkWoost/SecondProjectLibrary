@@ -11,9 +11,9 @@ namespace Library.WEB.Controllers
 {
     public class BookController : Controller
     {
-        BookService _bookService;
-        AuthorService _authorService;
-        PublicationHouseService _publicationHouseService;
+        private BookService _bookService;
+        private AuthorService _authorService;
+        private PublicationHouseService _publicationHouseService;
 
         public BookController()
         {          

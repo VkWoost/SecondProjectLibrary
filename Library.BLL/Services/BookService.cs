@@ -4,6 +4,7 @@ using Library.DAL.Repositories;
 using Library.Entities.Entities;
 using System.Collections.Generic;
 using Library.ViewModels.ViewModels;
+using System.Linq;
 
 namespace Library.BLL.Services
 {
@@ -61,13 +62,14 @@ namespace Library.BLL.Services
                 cfg.CreateMap<Book, BookViewModel>();
             }).CreateMapper();
             List <BookViewModel> result = new List<BookViewModel>();
-            foreach (var i in books)
+            foreach (var book in books)
             {
-                result.Add(mapperBook.Map<Book, BookViewModel>(i));
+                result.Add(mapperBook.Map<Book, BookViewModel>(book));
             }
-            foreach (var i in result)
+            var authors = _authorService.GetAuthors();
+            foreach (var book in result)
             {
-                i.Author = _authorService.GetAuthor(i.AuthorId.Value);
+                book.Author = authors.Where(x => x.Id == book.AuthorId).FirstOrDefault();
             }
             return result;
         }

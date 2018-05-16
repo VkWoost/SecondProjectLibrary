@@ -8,8 +8,8 @@ namespace Library.WEB.Controllers
 {
     public class PublicationHouseController : Controller
     {
-        PublicationHouseService _publicationHouseService;
-        BookService _bookService;
+        private PublicationHouseService _publicationHouseService;
+        private BookService _bookService;
 
         public PublicationHouseController()
         {

@@ -8,8 +8,8 @@ namespace Library.DAL.Repositories
 {
     public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        DbContext _context;
-        DbSet<TEntity> _dbSet;
+        private DbContext _context;
+        private DbSet<TEntity> _dbSet;
 
         public EFGenericRepository(string conn)
         {

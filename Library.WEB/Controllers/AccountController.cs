@@ -12,7 +12,7 @@ namespace Library.WEB.Controllers
 {
     public class AccountController : Controller
     {
-        private IUserService UserService
+        private IUserService _userService
         {
             get
             {
@@ -40,7 +40,7 @@ namespace Library.WEB.Controllers
             if (ModelState.IsValid)
             {
                 UserViewModel userViewModel = new UserViewModel { Email = model.Email, Password = model.Password };
-                ClaimsIdentity claim = await UserService.Authenticate(userViewModel);
+                ClaimsIdentity claim = await _userService.Authenticate(userViewModel);
                 if (claim == null)
                 {
                     ModelState.AddModelError("", "Wrong login or password.");
@@ -79,7 +79,7 @@ namespace Library.WEB.Controllers
                     Email = model.Email,
                     Password = model.Password
                 };
-                OperationDetails operationDetails = await UserService.Create(userViewModel);
+                OperationDetails operationDetails = await _userService.Create(userViewModel);
                 if (operationDetails.Succedeed)
                 {
                     return View("SuccessRegister");

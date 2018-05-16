@@ -13,11 +13,11 @@ namespace Library.BLL.Services
 {
     public class UserService : IUserService
     {
-        IUnitOfWorkIdentity Database { get; set; }
+        public IUnitOfWorkIdentity Database { get; set; }
 
-        public UserService(IUnitOfWorkIdentity uow)
+        public UserService(IUnitOfWorkIdentity unitOfWork)
         {
-            Database = uow;
+            Database = unitOfWork;
         }
 
         public async Task<OperationDetails> Create(UserViewModel userViewModel)
