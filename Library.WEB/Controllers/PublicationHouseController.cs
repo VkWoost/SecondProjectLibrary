@@ -23,14 +23,14 @@ namespace Library.WEB.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = IdentityRolesViewModels.Admin)]
+        [Authorize(Roles = nameof(IdentityRolesViewModels.Admin))]
         public ActionResult AddPublicationHouse(PublicationHouseViewModel publicationHouseViewModel)
         {
             _publicationHouseService.AddPublicationHouse(publicationHouseViewModel);
             return Json(publicationHouseViewModel);
         }
 
-        [Authorize(Roles = IdentityRolesViewModels.Admin)]
+        [Authorize(Roles = nameof(IdentityRolesViewModels.Admin))]
         public ActionResult DeletePublicationHouse(int id)
         {
             _publicationHouseService.DeletePublicationHouse(id);
@@ -38,7 +38,7 @@ namespace Library.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = IdentityRolesViewModels.Admin)]
+        [Authorize(Roles = nameof(IdentityRolesViewModels.Admin))]
         public ActionResult PublicationHouseEdit(PublicationHouseViewModel publicationHouseViewModel)
         {
             _publicationHouseService.UpdatePublicationHouse(publicationHouseViewModel);

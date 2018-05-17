@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Library.ViewModels.IdentityViewModels;
 using Library.Entities.IdentityEnums;
+using System.Collections.Generic;
 
 namespace Library.BLL.Services
 {
@@ -31,7 +32,10 @@ namespace Library.BLL.Services
                 {
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
                 }
-                userViewModel.Role = IdentityRoles.user.ToString();
+                if (userViewModel.Role != "admin")
+                {
+                    userViewModel.Role = IdentityRoles.user.ToString();
+                }
                 await Database.UserManager.AddToRoleAsync(user.Id, userViewModel.Role);              
                 ClientProfile clientProfile = new ClientProfile { Id = user.Id };
                 Database.ClientManager.Create(clientProfile);
@@ -55,6 +59,20 @@ namespace Library.BLL.Services
                                             DefaultAuthenticationTypes.ApplicationCookie);
             }
             return claim;
+        }
+
+        public async Task SetInitialData(UserViewModel admin, List<string> roles)
+        {
+            foreach (string roleName in roles)
+            {
+                var role = await Database.RoleManager.FindByNameAsync(roleName);
+                if (role == null)
+                {
+                    role = new ApplicationRole { Name = roleName };
+                    await Database.RoleManager.CreateAsync(role);
+                }
+            }
+            await Create(admin);
         }
 
         public void Dispose()

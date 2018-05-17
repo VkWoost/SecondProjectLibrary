@@ -2,7 +2,7 @@
 
 namespace Library.Entities.Entities
 {
-    public class PublicationHouse : Basic
+    public class PublicationHouse : BaseEntity
     {
         public string Adress { get; set; }
 

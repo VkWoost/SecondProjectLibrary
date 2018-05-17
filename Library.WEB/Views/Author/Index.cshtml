@@ -2,12 +2,16 @@
 
 <div id="example">
     <div id="grid"></div>
-    @if (User.IsInRole(IdentityRolesViewModels.Admin))
+    @if (User.IsInRole(nameof(IdentityRolesViewModels.Admin)))
     {
         <script src="~/Scripts/KendoGrid/AdminAuthor.js"></script>
     }
-    @if(!User.IsInRole(IdentityRolesViewModels.Admin))
+    @if(User.IsInRole(nameof(IdentityRolesViewModels.User)))
     {
         <script src="~/Scripts/KendoGrid/Author.js"></script>
+    }
+    @if(!User.IsInRole(nameof(IdentityRolesViewModels.User)) && !User.IsInRole(nameof(IdentityRolesViewModels.Admin)))
+    {
+        <h2>Please Login to view content</h2>
     }
 </div>

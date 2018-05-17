@@ -81,6 +81,12 @@
         columns: [
             { field: "Name", title: "Name" },
             { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
-        editable: "popup"
+        editable: "popup",
+        edit: function(e) {
+            if (e.model.isNew()) {
+                $(".k-window-title")[0].innerHTML = "Add";
+                $(".k-button.k-button-icontext.k-primary.k-grid-update")[0].textContent = "Add";
+            }
+        }
     });
 });

@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Author.cs" />
-    <Compile Include="Entities\Basic.cs" />
+    <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Brochure.cs" />
     <Compile Include="Entities\Magazine.cs" />

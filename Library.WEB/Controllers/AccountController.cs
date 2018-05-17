@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Library.ViewModels.IdentityViewModels;
+using Library.BLL.Services;
+using System.Collections.Generic;
 
 namespace Library.WEB.Controllers
 {
@@ -37,6 +39,7 @@ namespace Library.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
+            await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
                 UserViewModel userViewModel = new UserViewModel { Email = model.Email, Password = model.Password };
@@ -72,6 +75,7 @@ namespace Library.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
                 UserViewModel userViewModel = new UserViewModel
@@ -90,6 +94,16 @@ namespace Library.WEB.Controllers
                 }
             }
             return View(model);
+        }
+
+        private async Task SetInitialDataAsync()
+        {
+            await _userService.SetInitialData(new UserViewModel
+            {
+                Email = "admin@gmail.com",
+                Password = "123456",
+                Role = "admin",
+            }, new List<string> { "admin" });
         }
     }
 }

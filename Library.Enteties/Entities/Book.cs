@@ -2,7 +2,7 @@
 
 namespace Library.Entities.Entities
 {
-    public class Book : Basic
+    public class Book : BaseEntity
     {       
         public int YearOfPublication { get; set; }
 

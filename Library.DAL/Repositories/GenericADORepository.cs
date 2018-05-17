@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Library.DAL.Repositories
 {
-    public class EFGenericADORepository<TEntity> : IGenericRepository<TEntity> where TEntity : Basic
+    public class EFGenericADORepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         private string _connectionString;
 
@@ -131,7 +131,7 @@ namespace Library.DAL.Repositories
         {
             return typeof(TEntity)
                     .GetProperties()
-                    .Where(e => e.Name != "Id" && !e.PropertyType.GetTypeInfo().IsGenericType)
+                    .Where(e => e.Name != nameof(BaseEntity.Id) && !e.PropertyType.GetTypeInfo().IsGenericType)
                     .Select(e => e.Name);
         }
     }

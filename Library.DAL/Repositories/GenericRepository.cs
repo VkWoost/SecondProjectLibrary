@@ -1,12 +1,13 @@
 ﻿using Library.DAL.EF;
 using Library.DAL.Interfaces;
+using Library.Entities.Entities;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
 namespace Library.DAL.Repositories
 {
-    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         private DbContext _context;
         private DbSet<TEntity> _dbSet;

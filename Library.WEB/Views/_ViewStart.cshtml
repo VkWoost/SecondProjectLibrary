@@ -1,7 +1,12 @@
-﻿@{
-    var admin = @User.IsInRole("admin");
-    if (admin)
-        Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    else
-        Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@using Library.ViewModels.IdentityEnums
+
+@{ var admin = @User.IsInRole(nameof(IdentityRolesViewModels.Admin)); }
+@if (admin)
+{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+@if (!admin)
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+

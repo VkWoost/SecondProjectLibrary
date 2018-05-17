@@ -1,9 +1,8 @@
 ﻿namespace Library.ViewModels.IdentityEnums
 {
-    public class IdentityRolesViewModels
+    public enum IdentityRolesViewModels
     {
-        public const string Admin = "admin";
-        
-        public const string User = "user";
+        Admin = 0,        
+        User = 1
     }
 }

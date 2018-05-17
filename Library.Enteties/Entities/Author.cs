@@ -2,7 +2,7 @@
 
 namespace Library.Entities.Entities
 {
-    public class Author : Basic
+    public class Author : BaseEntity
     {
         public ICollection<Book> Books { get; set; }
 
